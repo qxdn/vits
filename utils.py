@@ -8,6 +8,7 @@ import subprocess
 import numpy as np
 from scipy.io.wavfile import read
 import torch
+import platform
 
 MATPLOTLIB_FLAG = False
 
@@ -256,3 +257,11 @@ class HParams():
 
   def __repr__(self):
     return self.__dict__.__repr__()
+  
+
+def get_dist_backend():
+  os_system = platform.system()
+  if 'Windows' == os_system:
+    return 'gloo'
+  if 'Linux' == os_system:
+    return 'nccl'
